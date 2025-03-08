@@ -2,3 +2,5 @@ ignore/
 *.pyc
 src/__pycache__/
 src/util/__pycache__/
+__pycache__/
+.idea/
