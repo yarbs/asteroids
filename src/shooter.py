@@ -24,7 +24,7 @@ from util import *
 
 class Shooter(VectorSprite):
 
-    def __init__(self, position, heading, pointlist, stage, shooter_color=(255, 255, 0)):
+    def __init__(self, position, heading, pointlist, stage, shooter_color=(255, 255, 255)):
         VectorSprite.__init__(self, position, heading, pointlist, color=shooter_color)
         self.bullets = []
         self.stage = stage

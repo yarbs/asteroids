@@ -16,8 +16,7 @@
 #    Copyright (C) 2018  Francisco Sanchez Arroyo
 #
 
-import random
-from util.vectorsprites import *
+# import random
 from shooter import *
 from math import *
 from soundManager import *
@@ -44,7 +43,8 @@ class Ship(Shooter):
         self.inHyperSpace = False
         pointlist = [(0, -10), (6, 10), (3, 7), (-3, 7), (-6, 10)]
 
-        Shooter.__init__(self, position, heading, pointlist, stage)
+        # make the ship color the traditional white
+        Shooter.__init__(self, position, heading, pointlist, stage, shooter_color=(255, 255, 255))
 
     def draw(self):
         if self.visible:
@@ -118,7 +118,8 @@ class Ship(Shooter):
     def addShipDebris(self, pointlist):
         heading = Vector2d(0, 0)
         position = Vector2d(self.position.x, self.position.y)
-        debris = VectorSprite(position, heading, pointlist, self.angle)
+        # by adding color parameter to debris, you can make the exploding ship be any color besides default white
+        debris = VectorSprite(position, heading, pointlist, self.angle, color=(255,0,0))
 
         # Add debris to the stage
         self.stage.addSprite(debris)
@@ -156,7 +157,16 @@ class Ship(Shooter):
 
 # Exhaust jet when ship is accelerating
 class ThrustJet(VectorSprite):
-    pointlist = [(-3, 7), (0, 13), (3, 7)]
+    # (-3, 7) left-bottom corner of thrust
+    # (3, 7) right-bottom corner of thrust
+    # (0, 13) peak of thrust
+    # pointlist = [(-3, 7), (0, 13), (3, 7)]
+    # additional points to thicken the thrust
+    pointlist = [
+        (-4, 7), (0, 18), (4, 7),
+        (-3, 6), (0, 13), (3, 6),
+        (-2, 5), (0, 15), (2, 5)
+    ]
 
     def __init__(self, stage, ship):
         position = Vector2d(stage.width/2, stage.height/2)
@@ -167,7 +177,8 @@ class ThrustJet(VectorSprite):
 
     def draw(self):
         if self.accelerating and self.ship.inHyperSpace == False:
-            self.color = (255, 255, 255)
+            # changed color from default 255, 255, 255 to yellow
+            self.color = (255, 251, 0)
         else:
             self.color = (0, 0, 0)
 
