@@ -18,21 +18,23 @@
 
 import random
 from util.vectorsprites import *
+from util.vector2d import Vector2d
 from util import *
 
 
 class Shooter(VectorSprite):
 
-    def __init__(self, position, heading, pointlist, stage):
-        VectorSprite.__init__(self, position, heading, pointlist)
+    def __init__(self, position, heading, pointlist, stage, shooter_color=(255, 255, 0)):
+        VectorSprite.__init__(self, position, heading, pointlist, color=shooter_color)
         self.bullets = []
         self.stage = stage
 
-    def fireBullet(self, heading, ttl, velocity):
+    def fireBullet(self, heading, ttl, velocity, bullet_color=(255,255,255)):
         if (len(self.bullets) < self.maxBullets):
             position = Vector2d(self.position.x, self.position.y)
             newBullet = Bullet(position, heading, self,
                                ttl, velocity, self.stage)
+            newBullet.color = bullet_color
             self.bullets.append(newBullet)
             self.stage.addSprite(newBullet)
             return True
